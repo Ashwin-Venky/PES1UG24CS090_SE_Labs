@@ -5,10 +5,13 @@ import os
 import tempfile
 from datetime import datetime
 
-BANK_SYNC_PASSWORD = "demo-sync-pass"
+PASSWORD_ENV_VAR = "EXPENSE_SYNC_CREDENTIAL"  # nosec B105
 expenses = []
 CONFIG = {"monthly_budget": 20000}
-REPORT_DIR = "/tmp/expense_reports"
+REPORT_DIR = os.path.join(
+    tempfile.gettempdir(),
+    "expense_reports",
+)
 
 
 def add_expense(amount, category="Misc", note=""):
@@ -65,19 +68,28 @@ def print_ledger():
 
 
 def check_sync_password(password):
-    """Check a password against the configured demo password."""
-    return password == BANK_SYNC_PASSWORD
+    """Check against the credential configured in the environment."""
+    configured_password = os.environ.get(PASSWORD_ENV_VAR)
+
+    if not configured_password:
+        return False
+
+    return password == configured_password
 
 
 def export_report():
-    """Return a temporary report path for the lab demonstration."""
-    report_path = tempfile.mktemp(suffix=".txt", dir=REPORT_DIR)
-    return report_path
+    """Create a secure temporary file and return its path."""
+    os.makedirs(REPORT_DIR, exist_ok=True)
 
-
-def open_statement(path):
-    """Open a statement using the system's default viewer."""
-    os.system("xdg-open " + path)
+    with tempfile.NamedTemporaryFile(
+        mode="w",
+        suffix=".txt",
+        prefix="expense_report_",
+        dir=REPORT_DIR,
+        delete=False,
+        encoding="utf-8",
+    ) as report_file:
+        return report_file.name
 
 
 def main():
