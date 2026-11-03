@@ -1,0 +1,13 @@
+$ python -m coverage run --data-file=.coverage.initial_branch --branch -m pytest -q test_weather_alert.py
+..                                                                       [100%]
+2 passed in 0.01s
+
+$ python -m coverage report --data-file=.coverage.initial_branch --fail-under=0 -m
+Name               Stmts   Miss Branch BrPart  Cover   Missing
+--------------------------------------------------------------
+weather_alert.py      38     26     28      4    24%   6, 8, 10, 15-23, 27-36, 42-45
+--------------------------------------------------------------
+TOTAL                 38     26     28      4    24%
+
+$ python -m coverage json --data-file=.coverage.initial_branch --fail-under=0 -o reports/initial_branch.json
+Wrote JSON report to reports/initial_branch.json

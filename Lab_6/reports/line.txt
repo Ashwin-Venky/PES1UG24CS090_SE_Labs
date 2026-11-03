@@ -1,0 +1,12 @@
+(.venv) ashwin@Ashwins-MacBook-Pro-5 Lab_6 % python -m coverage run -m pytest -q CodeCoverageTest_weather_alert.py
+................                                                                                                                                                                               [100%]
+16 passed in 0.02s
+(.venv) ashwin@Ashwins-MacBook-Pro-5 Lab_6 % python -m coverage report -m
+Name               Stmts   Miss  Cover   Missing
+------------------------------------------------
+weather_alert.py      38      0   100%
+------------------------------------------------
+TOTAL                 38      0   100%
+(.venv) ashwin@Ashwins-MacBook-Pro-5 Lab_6 % python -m coverage json -o reports/line.json
+Wrote JSON report to reports/line.json
+(.venv) ashwin@Ashwins-MacBook-Pro-5 Lab_6 %
