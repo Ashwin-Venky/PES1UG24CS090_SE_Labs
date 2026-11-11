@@ -1,0 +1,4 @@
+# These minimum versions support Python 3.8. Pip selects versions compatible
+# with the active interpreter.
+hypothesis>=6.100
+pytest>=8
